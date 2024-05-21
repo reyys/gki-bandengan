@@ -10,16 +10,16 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Course $course)
+    public function index()
     {
-        //
-        return view("courses.index");
+        $courses = Course::all();
+        return view("courses.index",["courses" => $courses]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
         return view("courses.create");
     }
@@ -34,10 +34,7 @@ class CourseController extends Controller
             "description" => "required|min:20|max:1000"
         ]);
 
-        Course::create([
-            "title" => $request->title,
-            "description" => $request->description,
-        ]);
+        Course::create($validated);
 
         return to_route("courses.index");
     }
@@ -48,6 +45,7 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         //
+        return view("/courses.show", ["course" => $course]);
     }
 
     /**
@@ -56,6 +54,7 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         //
+        return view("courses.edit", ["course" => $course]);
     }
 
     /**
@@ -63,7 +62,13 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $validated = $request->validate([
+            "title" => "required|min:4|max:255",
+            "description" => "required|min:20|max:1000"
+        ]);
+
+        $course->update($validated);
+        return to_route("courses.index");
     }
 
     /**
@@ -71,6 +76,7 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return to_route("courses.index");
     }
 }

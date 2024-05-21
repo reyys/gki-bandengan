@@ -1,5 +1,5 @@
 <div>
-    <form action="/courses" method="POST">
+    <form action="{{ route('courses.store') }}" method="POST">
         @csrf
         <input placeholder="Input course title" name="title" />
         @error('title')
