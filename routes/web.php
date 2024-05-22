@@ -18,11 +18,13 @@ Route::middleware([AuthenticatedMiddleware::class])->group(function() {
     Route::post("/logout",[UserController::class,"logout"])->name("logout");
 });
 
-// Accessible Routes 
+// Courses
 Route::get("/courses",[CourseController::class,"index"])->name("courses.index");
 Route::get("/courses/create",[CourseController::class,"create"])->name("courses.create");
 Route::post("/courses",[CourseController::class,"store"])->name("courses.store");
 Route::get("/courses/{course}",[CourseController::class,"show"])->name("courses.show");
+
+// Authentication
 Route::get("/register",[UserController::class,"register"])->name("register");
 Route::post("/register",[UserController::class,"registerStore"])->name("register.store");
 Route::get("/login",[UserController::class,"login"])->name("login");

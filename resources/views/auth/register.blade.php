@@ -1,5 +1,6 @@
 <x-layout>
-    <form action="register.store" method="POST">
+    <form action="{{ route('register.store') }}" method="POST">
+        @csrf
         <input name="name" placeholder="Input your name" />
         @error('name')
             <p>{{ $message }}</p>
@@ -12,8 +13,8 @@
         @error('password')
             <p>{{ $message }}</p>
         @enderror
-        <input name="password_confirmed" type="password" placeholder="Input your password" />
-        @error('password_confirmed')
+        <input name="password_confirmation" type="password" placeholder="Input your password" />
+        @error('password_confirmation')
             <p>{{ $message }}</p>
         @enderror
         <button type="submit">Create Account</button>

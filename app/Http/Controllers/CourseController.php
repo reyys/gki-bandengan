@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessMail;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schedule;
 
 class CourseController extends Controller
 {
@@ -31,10 +34,15 @@ class CourseController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|min:4|max:255",
-            "description" => "required|min:20|max:1000"
+            "description" => "required|min:4|max:255",
+            "image" => "required|image"
         ]);
 
+        $validated["user_id"] = auth()->id();
+        $validated["image"] = $request->file("image")->store("images");
+
         Course::create($validated);
+
 
         return to_route("courses.index");
     }
@@ -53,7 +61,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        Gate::authorize("update",$course);
         return view("courses.edit", ["course" => $course]);
     }
 

@@ -1,5 +1,6 @@
 <x-layout>
-    <form action="login.store" method="POST">
+    <form action="{{ route('login.store') }}" method="POST">
+        @csrf
         <input name="email" type="email" placeholder="Input your email" />
         @error('email')
             <p>{{ $message }}</p>

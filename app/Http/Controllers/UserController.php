@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessMail;
+use App\Mail\WelcomeUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
@@ -32,6 +35,8 @@ class UserController extends Controller
 
         Auth::login($user);
 
+        dispatch(new ProcessMail(["email" => "reyyy0207@gmail.com","name" => auth()->user()->name]));
+
         return to_route("courses.index");
 
     }
@@ -48,7 +53,7 @@ class UserController extends Controller
  
         if (Auth::attempt($revalidate)) {
             $request->session()->regenerate();
-            return redirect()->intended('courses.index');
+            return to_route("courses.index");
         }
  
         return back()->withErrors([
