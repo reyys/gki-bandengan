@@ -1,28 +1,37 @@
 <?php
 
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthenticatedMiddleware;
-use App\Http\Middleware\Authorized;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name("index");
 
 // Restricted Routes
 Route::middleware([AuthenticatedMiddleware::class])->group(function() {
-    Route::get("/courses/{course}/{edit}",[CourseController::class,"edit"])->name("courses.edit");
-    Route::put("/courses/{course}",[CourseController::class,"update"])->name("courses.update");
-    Route::delete("/courses/{course}",[CourseController::class,"destroy"])->name("courses.destroy");
+    Route::get("/schedules/{schedule}/{edit}",[ScheduleController::class,"edit"])->name("schedules.edit");
+    Route::put("/schedules/{schedule}",[ScheduleController::class,"update"])->name("schedules.update");
+    Route::delete("/schedules/{schedule}",[ScheduleController::class,"destroy"])->name("schedules.destroy");
     Route::post("/logout",[UserController::class,"logout"])->name("logout");
 });
 
-// Courses
-Route::get("/courses",[CourseController::class,"index"])->name("courses.index");
-Route::get("/courses/create",[CourseController::class,"create"])->name("courses.create");
-Route::post("/courses",[CourseController::class,"store"])->name("courses.store");
-Route::get("/courses/{course}",[CourseController::class,"show"])->name("courses.show");
+// schedules
+Route::get("/schedules",[ScheduleController::class,"index"])->name("schedules.index");
+Route::get("/schedules/create",[ScheduleController::class,"create"])->name("schedules.create");
+Route::post("/schedules",[ScheduleController::class,"store"])->name("schedules.store");
+Route::get("/schedules/{schedule}",[ScheduleController::class,"show"])->name("schedules.show");
+
+// Blogs
+Route::get("/blogs",function () {
+    return view("blogs.index");
+})->name("blogs.index");
+
+// Contact
+Route::get("/contact",function () {
+    return view("contact.index");
+})->name("contact.index");
 
 // Authentication
 Route::get("/register",[UserController::class,"register"])->name("register");

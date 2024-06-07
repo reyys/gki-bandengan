@@ -1,4 +1,7 @@
 <x-layout>
-    <h1>Welcome to Home Page</h1>
-    <a href="{{ route('courses.index') }}">See All Courses</a>
+    <section class="container">
+        <div class="min-h-[80vh] flex items-center justify-center">
+            <a href="{{ route('schedules.index') }}">Lihat Jadwal Misa</a>
+        </div>
+    </section>
 </x-layout>
