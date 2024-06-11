@@ -7,6 +7,9 @@ export default {
     ],
     theme: {
         extend: {
+            colors: {
+                primary: "#000000",
+            },
             container: {
                 center: true,
                 padding: {

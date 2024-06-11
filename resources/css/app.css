@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-[34px] md:text-[42px] lg:text-[50px];
+    }
+    h2 {
+        @apply text-[30px] lg:text-[36px];
+    }
+    h3 {
+        @apply text-[18px] lg:text-[20px];
+    }
+    h4 {
+        @apply text-[16px] lg:text-[18px];
+    }
+    h5 {
+        @apply text-[14px];
+    }
+    p {
+        @apply text-[16px];
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
