@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout.index>
     <section class="container p-5">
         <p>Schedule List</p>
         <a href="{{ route('schedules.create') }}">Create Schedule</a>
@@ -8,4 +8,4 @@
             @endforeach
         </div>
     </section>
-</x-layout>
+</x-layout.index>

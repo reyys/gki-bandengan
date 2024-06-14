@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthenticatedMiddleware;
@@ -24,9 +25,8 @@ Route::post("/schedules",[ScheduleController::class,"store"])->name("schedules.s
 Route::get("/schedules/{schedule}",[ScheduleController::class,"show"])->name("schedules.show");
 
 // Blogs
-Route::get("/blogs",function () {
-    return view("blogs.index");
-})->name("blogs.index");
+Route::get("/blogs",[BlogController::class,"index"]);
+Route::get("/blogs/{blog:slug}",[BlogController::class,"show"])->name("blogs.show");
 
 // Contact
 Route::get("/contact",function () {

@@ -8,7 +8,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: "#000000",
+                primary: "rgb(79 70 229)",
             },
             container: {
                 center: true,
