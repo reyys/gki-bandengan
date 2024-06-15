@@ -13,7 +13,7 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::all();
-        return view("schedules.index",compact($schedules));
+        return view("schedules.index",compact("schedules"));
     }
 
     /**

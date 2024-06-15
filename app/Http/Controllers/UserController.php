@@ -11,17 +11,17 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
-    public function register() {
-        return view("auth.register");
-    }   
 
-    public function registerStore(Request $request) {
+    public function showRegister() {
+        return view("auth.register");
+    }
+
+    public function register(Request $request) {
         $request->validate([
             "name" => "required|min:4|max:30|string",
             "email" => "required|email|unique:users",
             "password" => ["required","confirmed",Password::defaults()]
         ]);
-
 
         $user = User::create([
             "name" => $request->name,
@@ -29,28 +29,29 @@ class UserController extends Controller
             "password" => Hash::make($request->password),
         ]);
 
-
         Auth::login($user);
 
-        dispatch(new ProcessMail(["email" => "reyyy0207@gmail.com","name" => auth()->user()->name]));
+        $user->createToken("auth-token")->plainTextToken;
 
-        return to_route("schedules.index");
+        dispatch(new ProcessMail(["email" => $request->email,"name" => auth()->user()->name]));
+
+        return to_route("dashboard.index");
 
     }
 
-    public function login() {
+    public function showLogin() {
         return view("auth.login");
     }
 
-    public function loginStore(Request $request) {
+    public function login(Request $request) {
         $revalidate = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required',"min:8","string"],
         ]);
  
         if (Auth::attempt($revalidate)) {
-            $request->session()->regenerate();
-            return to_route("schedules.index");
+            $request->user()->createToken("auth-token")->plainTextToken;
+            return to_route("dashboard.index");
         }
  
         return back()->withErrors([
@@ -60,12 +61,7 @@ class UserController extends Controller
     }
 
     public function logout(Request $request) {
-        Auth::logout();
- 
-        $request->session()->invalidate();
-     
-        $request->session()->regenerateToken();
-     
+        Auth::guard('web')->logout();
         return redirect('/');
     }
 
