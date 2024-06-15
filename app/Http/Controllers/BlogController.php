@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 
-class ScheduleController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $schedules = Schedule::all();
-        return view("schedules.index",compact($schedules));
+        $blogs = Blog::all();
+        return view("blogs.index",compact("blogs"));
     }
 
     /**
@@ -21,7 +22,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        return view("schedules.create");
+        return view("blogs.create");
     }
 
     /**
@@ -40,31 +41,31 @@ class ScheduleController extends Controller
             "end_time" => "required",
         ]);
 
-        Schedule::create($validated);
+        Blog::create($validated);
 
-        return to_route("schedules.index");
+        return to_route("blogs.index");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Schedule $schedule)
+    public function show(Blog $blog)
     {
-        return view("schedules.show",compact($schedule));
+        return view("blogs.show",compact("blog"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Schedule $schedule)
+    public function edit(Request $request)
     {
-        return view("schedules.edit",compact($schedule));
+        return view("blogs.edit");
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Schedule $schedule)
+    public function update(Request $request, Blog $blog)
     {
         $validated = $request->validate([
             "title" => "required|min:4|max:255",
@@ -76,16 +77,16 @@ class ScheduleController extends Controller
             "start_time" => "required",
             "end_time" => "required",
         ]);
-        $schedule->update($validated);
-        return to_route("schedules.index");
+
+        $blog->update($validated);
+        return to_route("blogs.index");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Schedule $schedule)
+    public function destroy(Blog $blog)
     {
-        $schedule->delete();
-        return to_route("schedules.index");
+        //
     }
 }
