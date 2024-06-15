@@ -1,9 +1,8 @@
-<x-layout>
-    <div class="flex items-center justify-center md:min-h-[90vh]">
+<x-layout.index>
+    <div data-aos="fade-up" class="flex items-center justify-center md:min-h-[90vh]">
         <form class="w-full max-w-[500px] mx-auto flex flex-col space-y-5 bg-white md:border p-5 rounded-md"
             action="{{ route('register.store') }}" method="POST">
             @csrf
-            <h3 class="text-center">Daftar Jemaat</h3>
             <label>Name</label>
             <input class="p-3 border border-gray-300 rounded-md" name="name" placeholder="Input your name" />
             @error('name')
@@ -28,6 +27,11 @@
                 <p class="text-red-500">{{ $message }}</p>
             @enderror
             <button class="bg-primary text-white rounded-md py-3" type="submit">Create Account</button>
+            <p class="mt-10 text-center text-gray-500">
+                Sudah memiliki akun ?
+                <a href={{ route('login') }}
+                    class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Masuk</a>
+            </p>
         </form>
     </div>
-</x-layout>
+</x-layout.index>

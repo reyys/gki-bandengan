@@ -3,7 +3,6 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\AuthenticatedMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,7 +10,10 @@ Route::get('/', function () {
 })->name("index");
 
 // Restricted Routes
-Route::middleware([AuthenticatedMiddleware::class])->group(function() {
+Route::middleware("auth:sanctum")->group(function() {
+    Route::get("/dashboard",function() {
+        return view("dashboard.index");
+    })->name("dashboard.index");
     Route::get("/schedules/{schedule}/{edit}",[ScheduleController::class,"edit"])->name("schedules.edit");
     Route::put("/schedules/{schedule}",[ScheduleController::class,"update"])->name("schedules.update");
     Route::delete("/schedules/{schedule}",[ScheduleController::class,"destroy"])->name("schedules.destroy");
@@ -34,8 +36,8 @@ Route::get("/contact",function () {
 })->name("contact.index");
 
 // Authentication
-Route::get("/register",[UserController::class,"register"])->name("register");
-Route::post("/register",[UserController::class,"registerStore"])->name("register.store");
-Route::get("/login",[UserController::class,"login"])->name("login");
-Route::post("/login",[UserController::class,"loginStore"])->name("login.store");
+Route::get("/register",[UserController::class,"showRegister"])->name("register");
+Route::post("/register",[UserController::class,"register"])->name("register.store");
+Route::get("/login",[UserController::class,"showLogin"])->name("login");
+Route::post("/login",[UserController::class,"login"])->name("login.store");
 
