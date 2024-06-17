@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([CategorySeeder::class,UserSeeder::class,ScheduleSeeder::class]);
+        $this->call([CategorySeeder::class, UserSeeder::class, ScheduleSeeder::class, ServiceSeeder::class]);
         Blog::factory(100)->recycle([
             Category::all(),
             User::all(),
