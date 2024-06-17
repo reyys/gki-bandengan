@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string("title");
+            $table->string("address");
+            $table->string("description");
+            $table->string("pastor");
             $table->string("topic");
             $table->date("date");
             $table->time("start_time");

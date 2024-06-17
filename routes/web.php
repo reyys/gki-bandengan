@@ -5,6 +5,7 @@ use App\Http\Controllers\JemaatController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,14 +13,37 @@ Route::get('/', function () {
 })->name("index");
 
 // Restricted Routes
-Route::middleware("auth:sanctum")->group(function () {
-    Route::get("/dashboard", function () {
-        return view("dashboard.index");
-    })->name("dashboard.index");
-    Route::get("/schedules/{schedule}/{edit}", [ScheduleController::class, "edit"])->name("schedules.edit");
-    Route::put("/schedules/{schedule}", [ScheduleController::class, "update"])->name("schedules.update");
-    Route::delete("/schedules/{schedule}", [ScheduleController::class, "destroy"])->name("schedules.destroy");
-    Route::post("/logout", [UserController::class, "logout"])->name("logout");
+Route::middleware("auth:sanctum")->group(function() {
+    Route::get("/schedules/{schedule}/{edit}",[ScheduleController::class,"edit"])->name("schedules.edit");
+    Route::put("/schedules/{schedule}",[ScheduleController::class,"update"])->name("schedules.update");
+    Route::delete("/schedules/{schedule}",[ScheduleController::class,"destroy"])->name("schedules.destroy");
+    Route::post("/logout",[UserController::class,"logout"])->name("logout");
+
+    Route::get("/dashboard/home",function() {
+        return view("dashboard.home");
+    })->name("dashboard.home");
+
+    Route::get("/dashboard/schedules",function() {
+        $schedules = Schedule::all();
+        return view("dashboard.schedules",compact("schedules"));
+    })->name("dashboard.schedules");
+
+    Route::get("/dashboard/categories",function() {
+        return view("dashboard.categories");
+    })->name("dashboard.categories");
+
+    Route::get("/dashboard/blogs",function() {
+        return view("dashboard.blogs");
+    })->name("dashboard.blogs");
+
+    Route::get("/dashboard/services",function() {
+        return view("dashboard.services");
+    })->name("dashboard.services");
+
+    Route::get("/dashboard/jemaat",function() {
+        return view("dashboard.jemaat");
+    })->name("dashboard.jemaat");
+
 });
 
 // Jemaat
@@ -35,14 +59,14 @@ Route::post("/services", [ServiceController::class, "store"])->name("services.st
 Route::get("/services/{service:slug}", [ServiceController::class, "show"])->name("services.show");
 
 // schedules
-Route::get("/schedules", [ScheduleController::class, "index"])->name("schedules.index");
-Route::get("/schedules/create", [ScheduleController::class, "create"])->name("schedules.create");
-Route::post("/schedules", [ScheduleController::class, "store"])->name("schedules.store");
-Route::get("/schedules/{schedule}", [ScheduleController::class, "show"])->name("schedules.show");
+Route::get("/schedules",[ScheduleController::class,"index"])->name("schedules.index");
+Route::get("/schedules/create",[ScheduleController::class,"create"])->name("schedules.create");
+Route::post("/schedules",[ScheduleController::class,"store"])->name("schedules.store");
+Route::get("/schedules/{schedule}",[ScheduleController::class,"show"])->name("schedules.show");
 
 // Blogs
-Route::get("/blogs", [BlogController::class, "index"]);
-Route::get("/blogs/{blog:slug}", [BlogController::class, "show"])->name("blogs.show");
+Route::get("/blogs",[BlogController::class,"index"]);
+Route::get("/blogs/{blog:slug}",[BlogController::class,"show"])->name("blogs.show");
 
 // Contact
 Route::get("/contact", function () {
