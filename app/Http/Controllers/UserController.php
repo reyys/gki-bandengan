@@ -35,7 +35,7 @@ class UserController extends Controller
 
         dispatch(new ProcessMail(["email" => $request->email,"name" => auth()->user()->name]));
 
-        return to_route("dashboard.index");
+        return to_route("dashboard.home");
 
     }
 
@@ -51,7 +51,7 @@ class UserController extends Controller
  
         if (Auth::attempt($revalidate)) {
             $request->user()->createToken("auth-token")->plainTextToken;
-            return to_route("dashboard.index");
+            return to_route("dashboard.home");
         }
  
         return back()->withErrors([
