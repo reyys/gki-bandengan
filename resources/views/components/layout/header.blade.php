@@ -11,6 +11,10 @@
                     <button type="submit"
                         class="py-2 border-[2px] border-primary px-5 rounded-md text-primary hover:bg-primary hover:text-white transition-all">Logout</button>
                 </form>
+                <a href={{ route('dashboard.home') }}>
+                    <button
+                        class="py-2 border-[2px] border-primary bg-primary text-white px-5 rounded-md hover:scale-[0.95] transition-all">Dashboard</button>
+                </a>
             @endif
             @if (!auth('sanctum')->check())
                 <div class="flex items-center space-x-5">

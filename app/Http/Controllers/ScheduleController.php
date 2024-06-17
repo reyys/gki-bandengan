@@ -42,7 +42,7 @@ class ScheduleController extends Controller
 
         Schedule::create($validated);
 
-        return to_route("schedules.index");
+        return to_route("dashboard.schedules");
     }
 
     /**
