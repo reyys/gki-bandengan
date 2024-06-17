@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\JemaatController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ServiceController;
@@ -26,6 +27,12 @@ Route::get("/jemaats", [JemaatController::class, "index"])->name("jemaats.index"
 Route::get("/jemaats/create", [JemaatController::class, "create"])->name("jemaats.create");
 Route::post("/jemaats", [JemaatController::class, "store"])->name("jemaats.store");
 Route::get("/jemaats/{jemaat}", [JemaatController::class, "show"])->name("jemaats.show");
+
+// Services
+Route::get("/services", [ServiceController::class, "index"])->name("services.index");
+Route::get("/services/create", [ServiceController::class, "create"])->name("services.create");
+Route::post("/services", [ServiceController::class, "store"])->name("services.store");
+Route::get("/services/{service:slug}", [ServiceController::class, "show"])->name("services.show");
 
 // schedules
 Route::get("/schedules", [ScheduleController::class, "index"])->name("schedules.index");
