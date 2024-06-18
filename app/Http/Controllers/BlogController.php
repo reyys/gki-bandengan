@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\Schedule;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -22,7 +22,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view("blogs.create");
+        $categories = Category::all();
+        return view("blogs.create",compact("categories"));
     }
 
     /**
@@ -32,18 +33,18 @@ class BlogController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|min:4|max:255",
-            'address' => "required|min:4|max:255",
-            'description' => "required|min:4|max:255",
-            'pastor' => "required|min:4|max:255",
-            "topic" => "required|min:4|max:255",
-            "date" => "required",
-            "start_time" => "required",
-            "end_time" => "required",
+            "category_id" => "required",
+            "description" => "required|min:4|max:255",
+            'image' => 'required',
         ]);
+        
+        $validated["slug"] = str()->slug($request->title);
+        $validated["user_id"] = auth()->id();
+        $validated["image"] = $request->file("image")->store("blogs");
 
         Blog::create($validated);
 
-        return to_route("blogs.index");
+        return to_route("dashboard.blogs");
     }
 
     /**
@@ -57,9 +58,10 @@ class BlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit(Request $request, Blog $blog)
     {
-        return view("blogs.edit");
+        $categories = Category::all();
+        return view("blogs.edit",["blog" => $blog,"categories" => $categories]);
     }
 
     /**
@@ -69,17 +71,18 @@ class BlogController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|min:4|max:255",
-            'address' => "required|min:4|max:255",
-            'description' => "required|min:4|max:255",
-            'pastor' => "required|min:4|max:255",
-            "topic" => "required|min:4|max:255",
-            "date" => "required",
-            "start_time" => "required",
-            "end_time" => "required",
+            "category_id" => "required",
+            "description" => "required|min:4|max:255",
         ]);
+        
+        $validated["slug"] = str()->slug($request->title);
+
+        if($request->file != "") {
+            $validated["image"] = $request->file("image")->store("blogs");
+        }
 
         $blog->update($validated);
-        return to_route("blogs.index");
+        return to_route("blogs.show",compact("blog"));
     }
 
     /**
@@ -87,6 +90,8 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
+        $blog->delete();
+        toastr()->success("Blog berhasil dihapus !");
+        return to_route("dashboard.blogs");
     }
 }

@@ -13,13 +13,13 @@ class JemaatController extends Controller
     public function index()
     {
         $jemaats = Jemaat::all();
-        return view("jemaats.index", ["jemaats" => $jemaats]);
+        return view("jemaats.index", compact("jemaats"));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         return view("jemaats.create");
     }
@@ -30,14 +30,17 @@ class JemaatController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "name" => "required",
+            "name" => "required|min:4|max:255",
             "birth_date" => "required",
             "job" => "required",
         ]);
 
+
         Jemaat::create($validated);
 
-        return to_route("jemaats.index");
+        toastr()->success("Jemaat berhasil ditambahkan!");
+
+        return to_route("dashboard.jemaats");
     }
 
     /**
@@ -45,7 +48,7 @@ class JemaatController extends Controller
      */
     public function show(Jemaat $jemaat)
     {
-        return view("jemaats.show", compact($jemaat));
+        return view("jemaats.show", compact("jemaat"));
     }
 
     /**
@@ -53,7 +56,7 @@ class JemaatController extends Controller
      */
     public function edit(Jemaat $jemaat)
     {
-        return view("jemaats.edit", compact($jemaat));
+        return view("jemaats.edit", compact("jemaat"));
     }
 
     /**
@@ -67,7 +70,9 @@ class JemaatController extends Controller
             "job" => "required",
         ]);
         $jemaat->update($validated);
-        return to_route("jemaats.index");
+        toastr()->success('Data jemaat berhasil diubah !');
+        return to_route("dashboard.jemaats");
+
     }
 
     /**
@@ -76,6 +81,7 @@ class JemaatController extends Controller
     public function destroy(Jemaat $jemaat)
     {
         $jemaat->delete();
-        return to_route("jemaats.index");
+        toastr()->success('Data jemaat berhasil dihapus !');
+        return to_route("dashboard.jemaats");
     }
 }

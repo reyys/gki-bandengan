@@ -16,6 +16,11 @@
     <div class="flex">
         <x-sidebar.index />
         <main class="min-h-[100vh] w-full">
+            <div class="p-5 border-b bg-white drop-shadow-sm">
+                <p>
+                    {{ auth()->user()->email }}
+                </p>
+            </div>
             <div class="py-5 md:py-8 lg:py-12 w-full container">
                 {{ $slot }}
             </div>

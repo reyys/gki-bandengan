@@ -32,7 +32,7 @@ class ScheduleController extends Controller
         $validated = $request->validate([
             "title" => "required|min:4|max:255",
             'address' => "required|min:4|max:255",
-            'description' => "required|min:4|max:255",
+            'description' => "required|min:4",
             'pastor' => "required|min:4|max:255",
             "topic" => "required|min:4|max:255",
             "date" => "required",
@@ -41,7 +41,7 @@ class ScheduleController extends Controller
         ]);
 
         Schedule::create($validated);
-
+        toastr()->success('Jadwal misa berhasil dibuat !');
         return to_route("dashboard.schedules");
     }
 
@@ -50,7 +50,7 @@ class ScheduleController extends Controller
      */
     public function show(Schedule $schedule)
     {
-        return view("schedules.show",compact($schedule));
+        return view("schedules.show",compact("schedule"));
     }
 
     /**
@@ -58,7 +58,7 @@ class ScheduleController extends Controller
      */
     public function edit(Schedule $schedule)
     {
-        return view("schedules.edit",compact($schedule));
+        return view("schedules.edit",compact("schedule"));
     }
 
     /**
@@ -69,7 +69,7 @@ class ScheduleController extends Controller
         $validated = $request->validate([
             "title" => "required|min:4|max:255",
             'address' => "required|min:4|max:255",
-            'description' => "required|min:4|max:255",
+            'description' => "required|min:4",
             'pastor' => "required|min:4|max:255",
             "topic" => "required|min:4|max:255",
             "date" => "required",
@@ -77,7 +77,8 @@ class ScheduleController extends Controller
             "end_time" => "required",
         ]);
         $schedule->update($validated);
-        return to_route("schedules.index");
+        toastr()->success('Jadwal misa berhasil diubah !');
+        return to_route("schedules.show",compact("schedule"));
     }
 
     /**
@@ -86,6 +87,7 @@ class ScheduleController extends Controller
     public function destroy(Schedule $schedule)
     {
         $schedule->delete();
-        return to_route("schedules.index");
+        toastr()->success('Jadwal misa berhasil dihapus !');
+        return to_route("dashboard.schedules");
     }
 }

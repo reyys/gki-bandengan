@@ -1,17 +1,14 @@
 <x-layout>
-    <div class="bg-white py-24 sm:py-32">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Berita Terbaru</h2>
-                <p class="mt-2 text-lg leading-8 text-gray-600">Ketahui berita terbaru tentang gereja kami
-                </p>
-            </div>
-            <div
-                class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                @foreach ($blogs as $blog)
-                    <x-blogs.card :blog=$blog />
-                @endforeach
-            </div>
+    <div class="container py-5 md:py-8 lg:py-12">
+        <div>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Berita Terbaru</h2>
+            <p class="mt-2 text-lg leading-8 text-gray-600">Ketahui berita terbaru tentang gereja kami
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5">
+            @foreach ($blogs as $blog)
+                <x-blogs.card :blog=$blog />
+            @endforeach
         </div>
     </div>
 </x-layout>

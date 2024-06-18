@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -13,7 +14,7 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::all();
-        return view("services.index", ["services" => $services]);
+        return view("services.index", compact("services"));
     }
 
     /**
@@ -31,13 +32,18 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|min:4|max:255",
-            "image" => "required",
             "content" => "required",
+            "image" => "required",
         ]);
+
+        $validated["slug"] = str()->slug($request->title);
+        $validated["image"] = $request->file("image")->store("services");
 
         Service::create($validated);
 
-        return to_route("services.index");
+        toastr()->success("Service berhasil dibuat!");
+
+        return to_route("dashboard.services");
     }
 
     /**
@@ -45,7 +51,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        return view("services.show", compact($service));
+        return view("services.show", compact("service"));
     }
 
     /**
@@ -53,7 +59,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view("services.edit", compact($service));
+        return view("services.edit", compact("service"));
     }
 
     /**
@@ -63,11 +69,15 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             "title" => "required|min:4|max:255",
-            "image" => "required",
             "content" => "required",
         ]);
+
+        if($request->file != "") {
+            $validated["image"] = $request->file("image")->store("services");
+        }
+
         $service->update($validated);
-        return to_route("services.index");
+        return to_route("dashboard.services");
     }
 
     /**
@@ -76,6 +86,7 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         $service->delete();
-        return to_route("services.index");
+        toastr()->success('Service berhasil dihapus !');
+        return to_route("dashboard.services");
     }
 }
