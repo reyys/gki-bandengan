@@ -1,10 +1,11 @@
 <x-layout.dashboard>
-    <form action={{ route('blogs.store') }} method="POST" class="w-full max-w-2xl mx-auto" enctype="multipart/form-data">
+    <form action={{ route('services.store') }} method="POST" class="w-full max-w-2xl mx-auto"
+        enctype="multipart/form-data">
         @csrf
         <div class="space-y-12">
             <div class="border-b pb-12">
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Buat Blog</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600">Semua user dapat membuat blog mereka sendiri</p>
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Buat Service</h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600">Semua user dapat membuat service mereka sendiri</p>
                 <div class="mt-10 grid gap-y-8">
                     <div class="col-span-full">
                         <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Judul</label>
@@ -21,32 +22,19 @@
                         @enderror
                     </div>
                     <div class="col-span-full">
-                        <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Kategori</label>
+                        <label for="content" class="block text-sm font-medium leading-6 text-gray-900">Konten</label>
                         <div class="mt-2 w-full">
-                            <select name="category_id" id="category"
-                                class="w-full p-3 border border-gray-300 rounded-md">
-                                <option value="">Pilih Kategori</option>
-                                @foreach ($categories as $category)
-                                    <option value={{ $category->id }}>{{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                            <div
+                                class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
+                                <input type="text" name="content" id="content" autocomplete="content"
+                                    class="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                    placeholder="Masukkan Konten">
+                            </div>
                         </div>
-                        @error('category_id')
+                        @error('content')
                             <span class="mt-3 text-red-500">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-span-full">
-                        <label for="description"
-                            class="block text-sm font-medium leading-6 text-gray-900">Deskripsi</label>
-                        <div class="mt-2">
-                            <textarea id="description" name="description" rows="3" placeholder="Masukkan Deskripsi"
-                                class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
-                        </div>
-                        @error('description')
-                            <span class="mt-3 text-red-500">{{ $message }}</span>
-                        @enderror
-                    </div>
-
                     <div class="col-span-full">
                         <label for="image" class="block text-sm font-medium leading-6 text-gray-900">Upload
                             Gambar</label>
@@ -58,15 +46,14 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="mt-6 flex items-center justify-end gap-x-6">
-                <a href={{ route('dashboard.blogs') }}>
+                <a href={{ route('dashboard.services') }}>
                     <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+
                 </a>
                 <button type="submit"
                     class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Buat
-                    Blog</button>
+                    Service</button>
             </div>
     </form>
 </x-layout.dashboard>

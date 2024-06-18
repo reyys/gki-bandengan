@@ -1,6 +1,6 @@
 <x-layout>
     <section class="max-w-2xl mx-auto py-5 md:py-8 lg:py-12">
-        <img src="/images/{{ $blog->image }}" />
+        <img src={{ Storage::url($blog->image) }} />
         <div class="flex items-center justify-between">
             <div class="relative mt-8 flex items-center gap-x-4">
                 <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -17,7 +17,7 @@
             </div>
             <p class="mt-5 text-gray-400">{{ $blog->created_at->diffForHumans() }}</p>
         </div>
-        <h2 class="mt-5 font-medium leading-tight">{{ $blog->title }}</h2>
+        <h3 class="mt-5 font-medium leading-tight">{{ $blog->title }}</h3>
         <p class="mt-5">{{ $blog->description }}</p>
     </section>
 </x-layout>

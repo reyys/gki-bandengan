@@ -1,12 +1,31 @@
     <div class="h-full">
-        <a href="/blogs/{{ $blog->slug }}">
-            <article class="flex max-w-xl flex-col items-start bg-white border h-full">
-                <img src="/images/church.jpg" />
-                <div class="p-5">
-                    <div class="flex items-center gap-x-4 text-xs">
-                        <time datetime="2020-03-16" class="text-gray-500">{{ $blog->created_at->diffForHumans() }}</time>
-                        <a href="#"
-                            class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{{ $blog->category->name }}</a>
+        <a href={{ route('blogs.show', compact('blog')) }}>
+            <div class="flex max-w-xl flex-col items-start bg-white border h-full">
+                <div class="min-h-[200px] w-full">
+                    <img class="object-cover" src={{ Storage::url($blog->image) }} />
+                </div>
+                <div class="p-5 w-full">
+                    <div class="flex items-center justify-between w-full">
+                        <div class="flex items-center gap-x-4 text-xs w-full">
+                            <time datetime="2020-03-16"
+                                class="text-gray-500">{{ $blog->created_at->diffForHumans() }}</time>
+                            <a href="#"
+                                class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{{ $blog->category->name }}</a>
+                        </div>
+                        <div class="flex items-center space-x-5">
+                            <a href={{ route('blogs.edit', compact('blog')) }}>
+                                <x-heroicon-o-pencil-square
+                                    class="hover:text-primary transition-all cursor-pointer h-6 w-6" />
+                            </a>
+                            <form action={{ route('blogs.destroy', compact('blog')) }} method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="mt-1">
+                                    <x-heroicon-o-trash
+                                        class="hover:text-primary transition-all cursor-pointer h-6 w-6" />
+                                </button>
+                            </form>
+                        </div>
                     </div>
                     <div class="group relative">
                         <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
@@ -15,7 +34,7 @@
                                 {{ $blog->title }}
                             </a>
                         </h3>
-                        <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{{ $blog->description }}
+                        <p class="mt-3 line-clamp-3 text-sm leading-6 text-gray-600">{{ $blog->description }}
                         </p>
                     </div>
                     <div class="relative mt-8 flex items-center gap-x-4">
@@ -32,6 +51,6 @@
                         </div>
                     </div>
                 </div>
-            </article>
+            </div>
         </a>
     </div>

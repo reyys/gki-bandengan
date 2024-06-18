@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view("categories.index",compact("categories"));
     }
 
     /**
@@ -20,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view("categories.create");
     }
 
     /**
@@ -28,7 +29,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "name" => "required|min:4|max:255",
+        ]);
+
+        Category::create($validated);
+        toastr()->success('Kategori berhasil dibuat !');
+        return to_route("dashboard.categories");
     }
 
     /**
@@ -36,7 +43,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view("categories.show",compact("category"));
     }
 
     /**
@@ -44,7 +51,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view("categories.edit",compact("category"));
     }
 
     /**
@@ -52,7 +59,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            "name" => "required|min:4|max:255",
+        ]);
+        $category->update($validated);
+        toastr()->success('Kategori berhasil diubah !');
+        return to_route("dashboard.categories");
     }
 
     /**
@@ -60,6 +72,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        toastr()->success('Kategori berhasil dihapus !');
+        return to_route("dashboard.categories");
     }
 }
