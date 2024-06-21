@@ -1,4 +1,4 @@
-<div class="bg-white p-5 rounded-md border drop-shadow-lg flex items-center space-x-5 justify-between">
+<div data-aos="fade-up" class="bg-white p-5 rounded-md border drop-shadow-lg flex items-center space-x-5 justify-between">
     <p class="capitalize">
         {{ $category->name }}
     </p>

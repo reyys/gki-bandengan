@@ -1,4 +1,4 @@
-<div class="h-full">
+<div data-aos="fade-up" class="h-full">
     <a href={{ route('services.show', compact('service')) }}>
         <div class="flex max-w-xl flex-col items-start bg-white border h-full">
             <div class="min-h-[200px] w-full">

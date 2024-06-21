@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\JemaatController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ServiceController;
@@ -57,7 +58,9 @@ Route::middleware("auth:sanctum")->group(function() {
     Route::post("/jemaats", [JemaatController::class, "store"])->name("jemaats.store");
 
     Route::get("/dashboard/home",function() {
-        return view("dashboard.home");
+        $schedules = Schedule::all();
+        $services = Service::all();
+        return view("dashboard.home",["schedules" => $schedules,"services" => $services]);
     })->name("dashboard.home");
 
     Route::get("/dashboard/schedules",function() {
@@ -106,9 +109,7 @@ Route::get("/blogs",[BlogController::class,"index"]);
 Route::get("/blogs/{blog:slug}",[BlogController::class,"show"])->name("blogs.show");
 
 // Contact
-Route::get("/contact", function () {
-    return view("contact.index");
-})->name("contact.index");
+Route::post("/contact",[ContactController::class,"store"])->name("contact.store");
 
 // Authentication
 Route::get("/register", [UserController::class, "showRegister"])->name("register");

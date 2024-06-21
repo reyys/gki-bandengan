@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -26,10 +25,10 @@ class ContactMessage extends Mailable
     /**
      * Get the message envelope.
      */
-    public function envelope($mailData): Envelope
+    public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "Message from" + $mailData->name
+            subject: "New Message"
         );
     }
 
