@@ -13,10 +13,17 @@ class UserController extends Controller
 {
 
     public function showRegister() {
+
+        if(auth()->check()) {
+            return to_route(("dashboard.home"));
+        }
+
         return view("auth.register");
     }
 
     public function register(Request $request) {
+
+       
         $request->validate([
             "name" => "required|min:4|max:30|string",
             "email" => "required|email|unique:users",
@@ -40,10 +47,18 @@ class UserController extends Controller
     }
 
     public function showLogin() {
+
+        if(auth()->check()) {
+            return to_route(("dashboard.home"));
+        }
+
+
         return view("auth.login");
     }
 
     public function login(Request $request) {
+
+       
         $revalidate = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required',"min:8","string"],

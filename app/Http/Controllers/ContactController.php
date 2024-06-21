@@ -19,8 +19,8 @@ class ContactController extends Controller
 
         Mail::to("Reyyy0207@gmail.com")->send(new ContactMessage($validated));
 
-        flash()->success('Message sent successfully.');
+        toastr()->success('Message sent successfully.');
 
-        return to_route(".index");
+        return to_route("index");
     }
 }

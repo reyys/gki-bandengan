@@ -1,4 +1,4 @@
-<div class="h-full">
+<div data-aos="fade-up" class="h-full">
     <a href={{ route('jemaats.show', compact('jemaat')) }}>
         <div class="flex max-w-xl flex-col items-start bg-white border h-full">
             <div class="p-5 w-full">

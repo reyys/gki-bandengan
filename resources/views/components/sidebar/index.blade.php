@@ -1,4 +1,5 @@
-<div class="p-5 py-6 bg-slate-900 text-white w-full sticky top-0 h-[100vh] flex flex-col justify-between max-w-[300px]">
+<div
+    class="p-5 py-6 bg-slate-900 text-white w-full sticky top-0 h-[100vh] flex-col justify-between max-w-[300px] hidden md:flex">
     <div>
         <a href={{ route('index') }}>
             <h3 class="font-medium">GKI Bandengan</h3>

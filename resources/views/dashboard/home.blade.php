@@ -1,3 +1,32 @@
 <x-layout.dashboard>
-    <h3>Selamat Datang, {{ auth('sanctum')->user()->email }} !</h3>
+    <div class="flex flex-col gap-3">
+        <div class="p-5 border flex flex-col gap-5 max-w-[400px]">
+            <p class="capitalize">Nama : {{ auth()->user()->name }}</p>
+            <p>Email : {{ auth()->user()->email }}</p>
+            <p>Status : {{ auth()->user()->is_admin ? 'Admin' : 'Jemat' }}</p>
+            <p>Akun Dibuat Sejak : {{ auth()->user()->created_at->diffForHumans() }}</p>
+        </div>
+        <div class="flex flex-col space-y-5 md:space-y-0 md:flex-row items-center justify-between">
+            <h3>Jadwal Misa</h3>
+            <a href={{ route('schedules.create') }} class="p-3 bg-primary text-white rounded-md px-5">
+                Buat Jadwal Misa Baru
+            </a>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-8">
+            @foreach ($schedules as $schedule)
+                <x-schedules.card :schedule=$schedule />
+            @endforeach
+        </div>
+        <div class="flex flex-col space-y-5 md:space-y-0 md:flex-row items-center justify-between">
+            <h3>Pelayanan Kami</h3>
+            <a href={{ route('schedules.create') }} class="p-3 bg-primary text-white rounded-md px-5">
+                Buat Jadwal Misa Baru
+            </a>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-8">
+            @foreach ($services as $service)
+                <x-services.card :service=$service />
+            @endforeach
+        </div>
+    </div>
 </x-layout.dashboard>
