@@ -7,7 +7,7 @@
         @apply text-[34px] md:text-[42px] lg:text-[50px];
     }
     h2 {
-        @apply text-[30px] lg:text-[36px];
+        @apply text-[24px] lg:text-[28px];
     }
     h3 {
         @apply text-[18px] lg:text-[20px];

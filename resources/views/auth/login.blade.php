@@ -4,6 +4,7 @@
             <div class="w-full">
                 <form class="space-y-6" action="{{ route('login.store') }}" method="POST">
                     @csrf
+                    <h2 class="text-center font-semibold">Login</h2>
                     <div>
                         <label for="email" class="block font-medium leading-6 text-gray-900">Email
                             address</label>
@@ -19,11 +20,6 @@
                     <div>
                         <div class="flex items-center justify-between">
                             <label for="password" class="block font-medium leading-6 text-gray-900">Password</label>
-                            <div class=">
-                                <a href="#"
-                                class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot
-                                password?</a>
-                            </div>
                         </div>
                         <div class="mt-2">
                             <input placeholder="Masukkan password anda" id="password" name="password" type="password"

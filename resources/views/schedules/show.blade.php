@@ -24,13 +24,15 @@
                     <div class="flex items-start justify-between w-full">
                         <h2 class="font-bold tracking-tight text-white capitalize leading-tight">{{ $schedule->title }}
                         </h2>
-                        <div class="flex items-center space-x-8 mt-2">
-                            <a href={{ route('schedules.edit', compact('schedule')) }}>
-                                <x-heroicon-o-pencil-square
-                                    class="text-white hover:text-primary cursor-pointer h-6 w-6" />
-                            </a>
-                            <x-heroicon-o-trash class="text-white hover:text-primary cursor-pointer h-6 w-6" />
-                        </div>
+                        @if (auth()->check() && auth()->user()->is_admin)
+                            <div class="flex items-center space-x-8 mt-2">
+                                <a href={{ route('schedules.edit', compact('schedule')) }}>
+                                    <x-heroicon-o-pencil-square
+                                        class="text-white hover:text-primary cursor-pointer h-6 w-6" />
+                                </a>
+                                <x-heroicon-o-trash class="text-white hover:text-primary cursor-pointer h-6 w-6" />
+                            </div>
+                        @endif
                     </div>
                     <div class="flex items-center space-x-2 mt-5">
                         <x-heroicon-o-calendar class="h-4 w-4 text-white" />
