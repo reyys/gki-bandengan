@@ -3,6 +3,7 @@
         <form class="w-full max-w-[500px] mx-auto flex flex-col space-y-5 bg-white md:border p-5 rounded-md"
             action="{{ route('register.store') }}" method="POST">
             @csrf
+            <h2 class="text-center font-semibold">Buat Akun</h2>
             <label>Name</label>
             <input class="p-3 border border-gray-300 rounded-md" name="name" placeholder="Input your name" />
             @error('name')

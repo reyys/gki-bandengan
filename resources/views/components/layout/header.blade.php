@@ -1,6 +1,6 @@
 <header class="border-b relative z-[99]">
     <div class="container flex items-center justify-between py-5">
-        <a class="text-3xl" href={{ route('index') }}>GKI Bandengan</a>
+        <a class="text-3xl font-semibold" href={{ route('index') }}>GKI Bandengan</a>
         <div class="hidden lg:flex items-center space-x-8">
             <x-layout.navlink href="/schedules">Jadwal Misa</x-layout.navlink>
             <x-layout.navlink href="/blogs">Blogs</x-layout.navlink>
