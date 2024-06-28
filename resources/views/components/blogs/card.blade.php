@@ -2,7 +2,7 @@
         <a href={{ route('blogs.show', compact('blog')) }}>
             <div class="flex max-w-xl flex-col items-start bg-white border h-full">
                 <div class="w-full flex items-center justify-center">
-                    <img class="object-cover h-[300px] w-full" src={{ Storage::url($blog->image) }} />
+                    <img class="object-cover h-[350px] w-full" src={{ Storage::url($blog->image) }} />
                 </div>
                 <div class="p-5 w-full">
                     <div class="flex items-center justify-between w-full">

@@ -36,7 +36,7 @@ Route::middleware("auth:sanctum")->group(function() {
     Route::get("/categories/create",[CategoryController::class,"create"])->name("categories.create");
     Route::post("/categories",[CategoryController::class,"store"])->name("categories.store");
     
-    // Restricted Categories 
+    // Restricted Blogs
     Route::get("/blogs/edit/{blog}",[BlogController::class,"edit"])->name("blogs.edit");
     Route::put("/blogs/{blog}",[BlogController::class,"update"])->name("blogs.update");
     Route::delete("/blogs/{blog}",[BlogController::class,"destroy"])->name("blogs.destroy");
