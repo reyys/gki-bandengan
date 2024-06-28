@@ -11,6 +11,8 @@ Panduan Menjalankan Source Code :
 2. Pada root project, masukkan file `.env` yang telah dilampirkan pada assignment
 3. Buka terminal dan ketik `npm install`
 4. Setelah instalasi modul package.json selesai, langkah selanjutnya adalah ketik `composer install` untuk menginstall dependency yang diperlukan untuk laravel
-5. Kemudian jalankan program dengan mengetik `php artisan serve`
-6. Kemudian dapat membuka terminal baru / split terminal, dan menjalankan command terakhir yaitu : `npm run dev` untuk menjalankan vite agar styling css dapat bekerja
-7. Setelah itu landing page akan muncul pada `http://localhost:8000/` 
+5. Setelah itu dapat membuat tabel pada database dengan command `php artisan migrate`
+6. Langkah opsional : Dapat menjalankan `php artisan db:seed` untuk inisialisasi data
+7. Kemudian jalankan program dengan mengetik `php artisan serve`
+8. Kemudian dapat membuka terminal baru / split terminal, dan menjalankan command terakhir yaitu : `npm run dev` untuk menjalankan vite agar styling css dapat bekerja
+9. Setelah itu landing page akan muncul pada `http://localhost:8000/` 
